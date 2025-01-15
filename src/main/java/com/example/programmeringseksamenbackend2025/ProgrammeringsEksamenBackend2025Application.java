@@ -8,9 +8,6 @@ public class ProgrammeringsEksamenBackend2025Application {
 
     public static void main(String[] args) {
         SpringApplication.run(ProgrammeringsEksamenBackend2025Application.class, args);
-
-
-
     }
 
 }
