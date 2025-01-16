@@ -14,12 +14,12 @@ public class Pizza {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private double pris;
+    private int pris;
 
     @OneToMany(mappedBy = "pizza")
     private List<Levering> leveringer; // En pizza kan være del af flere leveringer
 
-    public Pizza(Long id, String name, double pris) {
+    public Pizza(Long id, String name, int pris) {
         this.id = id;
         this.name = name;
         this.pris = pris;
