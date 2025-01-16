@@ -43,7 +43,7 @@ public class PizzaController {
         try {
             Pizza updatedPizza = pizzaService.updatePizzaById(id, updatePizza);
             return ResponseEntity.ok(updatedPizza); // Returnerer HTTP 200 med den opdaterede pizza i body
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             return ResponseEntity.notFound().build(); // Returnerer HTTP 404, hvis pizzaen ikke findes
         }
     }
