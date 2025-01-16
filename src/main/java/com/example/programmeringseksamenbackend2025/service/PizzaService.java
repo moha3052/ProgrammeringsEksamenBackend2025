@@ -28,7 +28,7 @@ public class PizzaService {
         return pizzaRepository.save(pizza);
     }
 
-    public Pizza updatePizza(Long id, Pizza updatePizza){
+    public Pizza updatePizzaById(Long id, Pizza updatePizza){
         Pizza existingPizza = pizzaRepository.findById(id)
                 .orElseThrow( () -> new RuntimeException("Pizza blev ikke fundet"));
 

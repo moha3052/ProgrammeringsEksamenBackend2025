@@ -2,13 +2,10 @@ package com.example.programmeringseksamenbackend2025.entity;
 
 import com.example.programmeringseksamenbackend2025.enums.Driftsstatus;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+
 
 import java.util.List;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "Drones")
 public class Drone {
@@ -34,5 +31,45 @@ public class Drone {
 
     public Drone(){
 
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getSerial_uuid() {
+        return serial_uuid;
+    }
+
+    public void setSerial_uuid(int serial_uuid) {
+        this.serial_uuid = serial_uuid;
+    }
+
+    public Driftsstatus getDriftsstatus() {
+        return driftsstatus;
+    }
+
+    public void setDriftsstatus(Driftsstatus driftsstatus) {
+        this.driftsstatus = driftsstatus;
+    }
+
+    public Station getStation() {
+        return station;
+    }
+
+    public void setStation(Station station) {
+        this.station = station;
+    }
+
+    public List<Levering> getLeveringer() {
+        return leveringer;
+    }
+
+    public void setLeveringer(List<Levering> leveringer) {
+        this.leveringer = leveringer;
     }
 }

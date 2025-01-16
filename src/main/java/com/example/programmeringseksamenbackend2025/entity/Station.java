@@ -1,12 +1,9 @@
 package com.example.programmeringseksamenbackend2025.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 import java.util.List;
 
-@Getter
-@Setter
+
 @Entity
 @Table(name = "Stations")
 public class Station {
@@ -28,5 +25,35 @@ public class Station {
     public Station(){
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public List<Drone> getDroner() {
+        return droner;
+    }
+
+    public void setDroner(List<Drone> droner) {
+        this.droner = droner;
+    }
 }

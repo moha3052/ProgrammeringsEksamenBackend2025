@@ -1,13 +1,11 @@
 package com.example.programmeringseksamenbackend2025.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+
 @Entity
 @Table(name = "Leverings")
 public class Levering {
@@ -35,5 +33,53 @@ public class Levering {
     }
     public Levering(){
 
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public LocalDateTime getForventet_levering() {
+        return forventet_levering;
+    }
+
+    public void setForventet_levering(LocalDateTime forventet_levering) {
+        this.forventet_levering = forventet_levering;
+    }
+
+    public LocalDateTime getFaktisk_levering() {
+        return faktisk_levering;
+    }
+
+    public void setFaktisk_levering(LocalDateTime faktisk_levering) {
+        this.faktisk_levering = faktisk_levering;
+    }
+
+    public Drone getDrone() {
+        return drone;
+    }
+
+    public void setDrone(Drone drone) {
+        this.drone = drone;
+    }
+
+    public Pizza getPizza() {
+        return pizza;
+    }
+
+    public void setPizza(Pizza pizza) {
+        this.pizza = pizza;
     }
 }

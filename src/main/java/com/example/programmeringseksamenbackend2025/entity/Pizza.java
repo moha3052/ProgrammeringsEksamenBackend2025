@@ -1,12 +1,10 @@
 package com.example.programmeringseksamenbackend2025.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+
 import java.util.List;
 
-@Getter
-@Setter
+
 @Entity
 @Table(name = "Pizzas")
 public class Pizza {
@@ -29,4 +27,35 @@ public class Pizza {
 
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getPris() {
+        return pris;
+    }
+
+    public void setPris(int pris) {
+        this.pris = pris;
+    }
+
+    public List<Levering> getLeveringer() {
+        return leveringer;
+    }
+
+    public void setLeveringer(List<Levering> leveringer) {
+        this.leveringer = leveringer;
+    }
 }
