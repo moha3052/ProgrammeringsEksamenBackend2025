@@ -118,7 +118,7 @@ public class LeveringController {
      * @param droneId Dronens ID.
      * @return Opdateret leveringsobjekt.
      */
-    @PostMapping("/schedule/{leveringId}/{droneId}")
+    @PutMapping("/schedule/{leveringId}/{droneId}")
     public ResponseEntity<Levering> scheduleLevering(@PathVariable Long leveringId, @PathVariable Long droneId) {
         try {
             Levering scheduledLevering = leveringService.scheduleLevering(droneId, leveringId);
@@ -133,7 +133,7 @@ public class LeveringController {
      * @param id Leveringens ID.
      * @return Opdateret leveringsobjekt.
      */
-    @PostMapping("/finish/{id}")
+    @PutMapping("/finish/{id}")
     public ResponseEntity<Levering> finishLevering(@PathVariable Long id) {
         try {
             Levering finishedLevering = leveringService.finishLevering(id);

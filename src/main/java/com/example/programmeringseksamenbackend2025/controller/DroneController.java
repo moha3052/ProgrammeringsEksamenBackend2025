@@ -65,7 +65,7 @@ public class DroneController {
     }
 
     // Endpoint til at ændre status på en drone til "i drift"
-    @PostMapping("/{id}/enable")
+    @PutMapping("/{id}/enable")
     public ResponseEntity<Drone> enableDrone(@PathVariable Long id){
         try {
             Drone enabledDrone = droneService.updateDrone(id, new Drone(null, Driftsstatus.I_DRIFT));
@@ -77,7 +77,7 @@ public class DroneController {
     }
 
     // Endpoint til at ændre status på en drone til "ude af drift"
-    @PostMapping("/{id}/disable")
+    @PutMapping("/{id}/disable")
     public ResponseEntity<Drone> disableDrone(@PathVariable Long id) {
         try {
             Drone disabledDrone = droneService.updateDrone(id, new Drone(null, Driftsstatus.UDE_AF_DRIFT));
@@ -88,7 +88,7 @@ public class DroneController {
     }
 
     // Endpoint til at ændre status på en drone til "udfaset"
-    @PostMapping("/{id}/retire")
+    @PutMapping("/{id}/retire")
     public ResponseEntity<Drone> retireDrone(@PathVariable Long id) {
         try {
             Drone retiredDrone = droneService.updateDrone(id, new Drone(null, Driftsstatus.UDFASET));
