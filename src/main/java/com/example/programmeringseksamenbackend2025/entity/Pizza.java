@@ -1,15 +1,14 @@
 package com.example.programmeringseksamenbackend2025.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
+@Table(name = "Pizzas")
 public class Pizza {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +16,8 @@ public class Pizza {
     private String name;
     private double pris;
 
+    @OneToMany(mappedBy = "pizza")
+    private List<Levering> leveringer; // En pizza kan være del af flere leveringer
 
     public Pizza(Long id, String name, double pris) {
         this.id = id;
