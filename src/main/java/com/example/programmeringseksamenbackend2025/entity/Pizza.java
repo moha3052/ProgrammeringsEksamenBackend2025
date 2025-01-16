@@ -1,5 +1,6 @@
 package com.example.programmeringseksamenbackend2025.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public class Pizza {
     private int pris;
 
     @OneToMany(mappedBy = "pizza")
+    @JsonIgnore // Ignorer leveringer, når pizza serialiseres
     private List<Levering> leveringer; // En pizza kan være del af flere leveringer
 
     public Pizza(String name, int pris) {
@@ -24,6 +26,14 @@ public class Pizza {
 
     public Pizza(){
 
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

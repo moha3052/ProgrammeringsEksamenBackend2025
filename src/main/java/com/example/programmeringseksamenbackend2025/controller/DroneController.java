@@ -1,8 +1,8 @@
 package com.example.programmeringseksamenbackend2025.controller;
 
 import com.example.programmeringseksamenbackend2025.entity.Drone;
+import com.example.programmeringseksamenbackend2025.enums.Driftsstatus;
 import com.example.programmeringseksamenbackend2025.service.DroneService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/drones")
+@RequestMapping("/drones")
 @CrossOrigin("*")
 public class DroneController {
 
@@ -28,15 +28,20 @@ public class DroneController {
 
     @GetMapping("{id}")
     public ResponseEntity<Optional<Drone>> getAllDronesById(@PathVariable Long id){
-        Optional<Drone> allDronesById = droneService.getAllDronesById(id);
+        Optional<Drone> allDronesById = droneService.getDronesById(id);
 
         return ResponseEntity.ok(allDronesById);
     }
 
-    @PostMapping
-    public ResponseEntity<Drone> createDrone(@RequestBody Drone drone){
-        Drone createDrone = droneService.createDrone(drone);
-        return new ResponseEntity<>(createDrone, HttpStatus.CREATED);
+    // Endpoint til at oprette en ny drone og koble den til stationen med færrest droner
+    @PostMapping("/add")
+    public ResponseEntity<Drone> createDrone(){
+       try {
+           Drone newDrone = droneService.addDrone();
+           return ResponseEntity.ok(newDrone);
+       }catch (RuntimeException  e){
+           return ResponseEntity.badRequest().body(null);
+       }
     }
 
     @PutMapping("{id}")
@@ -44,7 +49,7 @@ public class DroneController {
         try {
             Drone updateDrone = droneService.updateDrone(id, drone);
             return ResponseEntity.ok(updateDrone);
-        } catch (Exception e){
+        } catch (RuntimeException e){
             return ResponseEntity.notFound().build();
         }
     }
@@ -52,10 +57,44 @@ public class DroneController {
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteDroneById(@PathVariable Long id){
         try {
-            droneService.deleteDronesById(id);
+            droneService.deleteDroneById(id);
             return ResponseEntity.noContent().build(); // Returnerer HTTP 204, hvis sletningen lykkes
-        } catch (Exception e){
+        } catch (RuntimeException  e){
             return ResponseEntity.notFound().build(); // Returnerer HTTP 404, hvis pizzaen ikke findes
+        }
+    }
+
+    // Endpoint til at ændre status på en drone til "i drift"
+    @PostMapping("/{id}/enable")
+    public ResponseEntity<Drone> enableDrone(@PathVariable Long id){
+        try {
+            Drone enabledDrone = droneService.updateDrone(id, new Drone(null, Driftsstatus.I_DRIFT));
+            return ResponseEntity.ok(enabledDrone);
+        }catch (RuntimeException e){
+            return ResponseEntity.notFound().build();
+
+        }
+    }
+
+    // Endpoint til at ændre status på en drone til "ude af drift"
+    @PostMapping("/{id}/disable")
+    public ResponseEntity<Drone> disableDrone(@PathVariable Long id) {
+        try {
+            Drone disabledDrone = droneService.updateDrone(id, new Drone(null, Driftsstatus.UDE_AF_DRIFT));
+            return ResponseEntity.ok(disabledDrone);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // Endpoint til at ændre status på en drone til "udfaset"
+    @PostMapping("/{id}/retire")
+    public ResponseEntity<Drone> retireDrone(@PathVariable Long id) {
+        try {
+            Drone retiredDrone = droneService.updateDrone(id, new Drone(null, Driftsstatus.UDFASET));
+            return ResponseEntity.ok(retiredDrone);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
         }
     }
 

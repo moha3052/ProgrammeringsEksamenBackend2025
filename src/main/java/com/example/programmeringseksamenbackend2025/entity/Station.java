@@ -1,5 +1,6 @@
 package com.example.programmeringseksamenbackend2025.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class Station {
     private double longitude;
 
     @OneToMany(mappedBy = "station")
+    @JsonIgnore
     private List<Drone> droner; // En station kan have flere droner
 
     public Station(double latitude, double longitude) {

@@ -1,6 +1,7 @@
 package com.example.programmeringseksamenbackend2025.entity;
 
 import com.example.programmeringseksamenbackend2025.enums.Driftsstatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 
@@ -18,9 +19,11 @@ public class Drone {
 
     @ManyToOne
     @JoinColumn(name = "station_id", nullable = false)
+    @JsonIgnore
     private Station station; // Drone er knyttet til én station
 
     @OneToMany(mappedBy = "drone")
+    @JsonIgnore
     private List<Levering> leveringer; // En drone kan udføre flere leveringer
 
     public Drone(String serial_uuid, Driftsstatus driftsstatus) {

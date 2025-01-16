@@ -1,5 +1,7 @@
 package com.example.programmeringseksamenbackend2025.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 
@@ -14,10 +16,12 @@ public class Levering {
     private Long id;
     private String adresse;
     private LocalDateTime forventet_levering;
-    private LocalDateTime faktisk_levering;
+    @Column(name = "faktisk_levering")
+    private LocalDateTime faktiskLevering;
 
     @ManyToOne
     @JoinColumn(name = "drone_id")
+    @JsonIgnore
     private Drone drone; // Levering kan udføres af én drone (valgfrit)
 
     @ManyToOne
@@ -25,10 +29,10 @@ public class Levering {
     private Pizza pizza; // Hver levering indeholder én pizza
 
 
-    public Levering(String adresse, LocalDateTime forventet_levering, LocalDateTime faktisk_levering) {
+    public Levering(String adresse, LocalDateTime forventet_levering, LocalDateTime faktiskLevering) {
         this.adresse = adresse;
         this.forventet_levering = forventet_levering;
-        this.faktisk_levering = faktisk_levering;
+        this.faktiskLevering = faktiskLevering;
     }
     public Levering(){
 
@@ -53,11 +57,11 @@ public class Levering {
     }
 
     public LocalDateTime getFaktisk_levering() {
-        return faktisk_levering;
+        return faktiskLevering;
     }
 
-    public void setFaktisk_levering(LocalDateTime faktisk_levering) {
-        this.faktisk_levering = faktisk_levering;
+    public void setFaktisk_levering(LocalDateTime faktiskLevering) {
+        this.faktiskLevering = faktiskLevering;
     }
 
     public Drone getDrone() {

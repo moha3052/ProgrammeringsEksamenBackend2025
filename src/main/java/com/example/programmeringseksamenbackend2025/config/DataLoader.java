@@ -1,10 +1,7 @@
 package com.example.programmeringseksamenbackend2025.config;
 
-import com.example.programmeringseksamenbackend2025.entity.Drone;
-import com.example.programmeringseksamenbackend2025.entity.Levering;
 import com.example.programmeringseksamenbackend2025.entity.Pizza;
 import com.example.programmeringseksamenbackend2025.entity.Station;
-import com.example.programmeringseksamenbackend2025.enums.Driftsstatus;
 import com.example.programmeringseksamenbackend2025.repository.DroneRepository;
 import com.example.programmeringseksamenbackend2025.repository.LeveringRepository;
 import com.example.programmeringseksamenbackend2025.repository.PizzaRepository;
@@ -19,14 +16,11 @@ import java.util.List;
 public class DataLoader implements CommandLineRunner {
     private final PizzaRepository pizzaRepository;
     private final StationRepository stationRepository;
-    private final LeveringRepository leveringRepository;
-    private final DroneRepository droneRepository;
+
 
     public DataLoader(PizzaRepository pizzaRepository, StationRepository stationRepository, LeveringRepository leveringRepository, DroneRepository droneRepository) {
         this.pizzaRepository = pizzaRepository;
         this.stationRepository = stationRepository;
-        this.leveringRepository = leveringRepository;
-        this.droneRepository = droneRepository;
     }
 
     @Override
