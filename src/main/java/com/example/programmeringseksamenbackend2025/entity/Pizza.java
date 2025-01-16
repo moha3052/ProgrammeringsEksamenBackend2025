@@ -17,22 +17,13 @@ public class Pizza {
     @OneToMany(mappedBy = "pizza")
     private List<Levering> leveringer; // En pizza kan være del af flere leveringer
 
-    public Pizza(Long id, String name, int pris) {
-        this.id = id;
+    public Pizza(String name, int pris) {
         this.name = name;
         this.pris = pris;
     }
 
     public Pizza(){
 
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {

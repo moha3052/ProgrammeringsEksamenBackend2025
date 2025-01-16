@@ -12,7 +12,7 @@ public class Drone {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int serial_uuid;
+    private String serial_uuid;
     @Enumerated(EnumType.STRING)
     private Driftsstatus driftsstatus;
 
@@ -23,8 +23,7 @@ public class Drone {
     @OneToMany(mappedBy = "drone")
     private List<Levering> leveringer; // En drone kan udføre flere leveringer
 
-    public Drone(Long id, int serial_uuid, Driftsstatus driftsstatus) {
-        this.id = id;
+    public Drone(String serial_uuid, Driftsstatus driftsstatus) {
         this.serial_uuid = serial_uuid;
         this.driftsstatus = driftsstatus;
     }
@@ -33,19 +32,12 @@ public class Drone {
 
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getSerial_uuid() {
+    public String getSerial_uuid() {
         return serial_uuid;
     }
 
-    public void setSerial_uuid(int serial_uuid) {
+    public void setSerial_uuid(String serial_uuid) {
         this.serial_uuid = serial_uuid;
     }
 

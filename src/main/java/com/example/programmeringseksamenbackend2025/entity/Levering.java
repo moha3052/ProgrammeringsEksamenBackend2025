@@ -25,8 +25,7 @@ public class Levering {
     private Pizza pizza; // Hver levering indeholder én pizza
 
 
-    public Levering(Long id, String adresse, LocalDateTime forventet_levering, LocalDateTime faktisk_levering) {
-        this.id = id;
+    public Levering(String adresse, LocalDateTime forventet_levering, LocalDateTime faktisk_levering) {
         this.adresse = adresse;
         this.forventet_levering = forventet_levering;
         this.faktisk_levering = faktisk_levering;
@@ -35,13 +34,7 @@ public class Levering {
 
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getAdresse() {
         return adresse;
