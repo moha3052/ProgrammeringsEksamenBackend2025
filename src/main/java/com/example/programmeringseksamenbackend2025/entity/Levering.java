@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 
 @Entity
@@ -15,9 +16,9 @@ public class Levering {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String adresse;
-    private LocalDateTime forventet_levering;
+    private LocalTime forventet_levering;
     @Column(name = "faktisk_levering")
-    private LocalDateTime faktiskLevering;
+    private LocalTime faktiskLevering;
 
     @ManyToOne
     @JoinColumn(name = "drone_id")
@@ -29,7 +30,8 @@ public class Levering {
     private Pizza pizza; // Hver levering indeholder én pizza
 
 
-    public Levering(String adresse, LocalDateTime forventet_levering, LocalDateTime faktiskLevering) {
+    public Levering(Long id, String adresse, LocalTime forventet_levering, LocalTime faktiskLevering) {
+        this.id = id;
         this.adresse = adresse;
         this.forventet_levering = forventet_levering;
         this.faktiskLevering = faktiskLevering;
@@ -38,7 +40,13 @@ public class Levering {
 
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getAdresse() {
         return adresse;
@@ -48,19 +56,19 @@ public class Levering {
         this.adresse = adresse;
     }
 
-    public LocalDateTime getForventet_levering() {
+    public LocalTime getForventet_levering() {
         return forventet_levering;
     }
 
-    public void setForventet_levering(LocalDateTime forventet_levering) {
+    public void setForventet_levering(LocalTime forventet_levering) {
         this.forventet_levering = forventet_levering;
     }
 
-    public LocalDateTime getFaktisk_levering() {
+    public LocalTime getFaktisk_levering() {
         return faktiskLevering;
     }
 
-    public void setFaktisk_levering(LocalDateTime faktiskLevering) {
+    public void setFaktisk_levering(LocalTime faktiskLevering) {
         this.faktiskLevering = faktiskLevering;
     }
 

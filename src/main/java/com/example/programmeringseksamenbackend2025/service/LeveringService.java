@@ -3,12 +3,14 @@ package com.example.programmeringseksamenbackend2025.service;
 import com.example.programmeringseksamenbackend2025.entity.Drone;
 import com.example.programmeringseksamenbackend2025.entity.Levering;
 import com.example.programmeringseksamenbackend2025.entity.Pizza;
+import com.example.programmeringseksamenbackend2025.enums.Driftsstatus;
 import com.example.programmeringseksamenbackend2025.repository.DroneRepository;
 import com.example.programmeringseksamenbackend2025.repository.LeveringRepository;
 import com.example.programmeringseksamenbackend2025.repository.PizzaRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,7 +62,7 @@ public class LeveringService {
         levering.setPizza(pizza);
 
         // Sæt andre nødvendige felter
-        levering.setForventet_levering(LocalDateTime.now().plusMinutes(30));
+        levering.setForventet_levering(LocalTime.now().plusMinutes(30));
         levering.setDrone(null);
 
         return leveringRepository.save(levering);
@@ -105,7 +107,7 @@ public class LeveringService {
         Drone drone = droneRepository.findById(droneId)
                 .orElseThrow(() -> new RuntimeException("Drone ikke fundet"));
 
-        if (!"I_DRIFT".equals(drone.getDriftsstatus().toString())){
+        if (drone.getDriftsstatus() != Driftsstatus.I_DRIFT){
             throw new RuntimeException("Drone er ikke i drift");
         }
 
@@ -128,7 +130,7 @@ public class LeveringService {
             throw new RuntimeException("Levering har ingen drone");
         }
 
-        levering.setFaktisk_levering(LocalDateTime.now());
+        levering.setFaktisk_levering(LocalTime.now());
         return leveringRepository.save(levering);
     }
 

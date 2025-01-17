@@ -55,6 +55,13 @@ public class DroneService {
         return droneRepository.save(drone);
     }
 
+    public Drone updateDroneStatus(Long id, Driftsstatus status) {
+        Drone drone = droneRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Drone not found with id: " + id));
+        drone.setDriftsstatus(status); // Opdaterer kun statusfeltet
+        return droneRepository.save(drone); // Gemmer ændringer i databasen
+    }
+
 
 
     public Drone updateDrone(Long id, Drone updateDrones){

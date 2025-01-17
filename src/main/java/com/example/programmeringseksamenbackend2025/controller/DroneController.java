@@ -66,33 +66,27 @@ public class DroneController {
 
     // Endpoint til at ændre status på en drone til "i drift"
     @PutMapping("/{id}/enable")
-    public ResponseEntity<Drone> enableDrone(@PathVariable Long id){
-        try {
-            Drone enabledDrone = droneService.updateDrone(id, new Drone(null, Driftsstatus.I_DRIFT));
-            return ResponseEntity.ok(enabledDrone);
-        }catch (RuntimeException e){
-            return ResponseEntity.notFound().build();
-
-        }
+    public ResponseEntity<Drone> enableDrone(@PathVariable Long id) {
+        return updateDroneStatus(id, Driftsstatus.I_DRIFT);
     }
 
     // Endpoint til at ændre status på en drone til "ude af drift"
     @PutMapping("/{id}/disable")
     public ResponseEntity<Drone> disableDrone(@PathVariable Long id) {
-        try {
-            Drone disabledDrone = droneService.updateDrone(id, new Drone(null, Driftsstatus.UDE_AF_DRIFT));
-            return ResponseEntity.ok(disabledDrone);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        return updateDroneStatus(id, Driftsstatus.UDE_AF_DRIFT);
     }
 
     // Endpoint til at ændre status på en drone til "udfaset"
     @PutMapping("/{id}/retire")
     public ResponseEntity<Drone> retireDrone(@PathVariable Long id) {
+        return updateDroneStatus(id, Driftsstatus.UDFASET);
+    }
+
+    // Fælles metode til statusopdatering
+    private ResponseEntity<Drone> updateDroneStatus(Long id, Driftsstatus status) {
         try {
-            Drone retiredDrone = droneService.updateDrone(id, new Drone(null, Driftsstatus.UDFASET));
-            return ResponseEntity.ok(retiredDrone);
+            Drone updatedDrone = droneService.updateDroneStatus(id, status);
+            return ResponseEntity.ok(updatedDrone);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }

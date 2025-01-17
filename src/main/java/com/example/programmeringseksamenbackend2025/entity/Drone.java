@@ -28,7 +28,8 @@ public class Drone {
     @JsonIgnore
     private List<Levering> leveringer; // En drone kan udføre flere leveringer
 
-    public Drone(String serial_uuid, Driftsstatus driftsstatus) {
+    public Drone(Long id, String serial_uuid, Driftsstatus driftsstatus) {
+        this.id = id;
         this.serial_uuid = serial_uuid;
         this.driftsstatus = driftsstatus;
     }
@@ -36,6 +37,16 @@ public class Drone {
     public Drone(){
 
     }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 
 
     public String getSerial_uuid() {
@@ -69,4 +80,6 @@ public class Drone {
     public void setLeveringer(List<Levering> leveringer) {
         this.leveringer = leveringer;
     }
+
+
 }
