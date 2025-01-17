@@ -10,7 +10,6 @@ import com.example.programmeringseksamenbackend2025.repository.PizzaRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,7 +61,7 @@ public class LeveringService {
         levering.setPizza(pizza);
 
         // Sæt andre nødvendige felter
-        levering.setForventet_levering(LocalTime.now().plusMinutes(30));
+        levering.setForventet_levering(LocalDateTime.now().plusMinutes(30));
         levering.setDrone(null);
 
         return leveringRepository.save(levering);
@@ -130,7 +129,7 @@ public class LeveringService {
             throw new RuntimeException("Levering har ingen drone");
         }
 
-        levering.setFaktisk_levering(LocalTime.now());
+        levering.setFaktisk_levering(LocalDateTime.now());
         return leveringRepository.save(levering);
     }
 

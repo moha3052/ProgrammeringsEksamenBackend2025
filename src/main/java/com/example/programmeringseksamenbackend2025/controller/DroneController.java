@@ -16,73 +16,121 @@ public class DroneController {
 
     private final DroneService droneService;
 
-    public DroneController(DroneService droneService){
+    public DroneController(DroneService droneService) {
         this.droneService = droneService;
     }
 
+    /**
+     * Hent alle droner.
+     *
+     * @return Liste over alle droner.
+     */
     @GetMapping
-    public ResponseEntity<List<Drone>> getAllDrones(){
+    public ResponseEntity<List<Drone>> getAllDrones() {
         List<Drone> allDrones = droneService.getAllDrones();
         return ResponseEntity.ok(allDrones);
     }
 
+    /**
+     * Hent en drone baseret på ID.
+     *
+     * @param id Drone ID.
+     * @return Den fundne drone eller tomt resultat.
+     */
     @GetMapping("{id}")
-    public ResponseEntity<Optional<Drone>> getAllDronesById(@PathVariable Long id){
+    public ResponseEntity<Optional<Drone>> getAllDronesById(@PathVariable Long id) {
         Optional<Drone> allDronesById = droneService.getDronesById(id);
-
         return ResponseEntity.ok(allDronesById);
     }
 
-    // Endpoint til at oprette en ny drone og koble den til stationen med færrest droner
+    /**
+     * Opret en ny drone og koble den til stationen med færrest droner.
+     *
+     * @return Den oprettede drone.
+     */
     @PostMapping("/add")
-    public ResponseEntity<Drone> createDrone(){
-       try {
-           Drone newDrone = droneService.addDrone();
-           return ResponseEntity.ok(newDrone);
-       }catch (RuntimeException  e){
-           return ResponseEntity.badRequest().body(null);
-       }
+    public ResponseEntity<Drone> createDrone() {
+        try {
+            Drone newDrone = droneService.addDrone();
+            return ResponseEntity.ok(newDrone);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
+    /**
+     * Opdater en drone baseret på ID.
+     *
+     * @param id    Drone ID.
+     * @param drone Opdateret drone-data.
+     * @return Den opdaterede drone.
+     */
     @PutMapping("{id}")
-    public ResponseEntity<Drone> updateDroneById(@PathVariable Long id, @RequestBody Drone drone){
+    public ResponseEntity<Drone> updateDroneById(@PathVariable Long id, @RequestBody Drone drone) {
         try {
             Drone updateDrone = droneService.updateDrone(id, drone);
             return ResponseEntity.ok(updateDrone);
-        } catch (RuntimeException e){
+        } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
     }
 
+    /**
+     * Slet en drone baseret på ID.
+     *
+     * @param id Drone ID.
+     * @return HTTP 204 ved succes, HTTP 404 hvis dronen ikke findes.
+     */
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteDroneById(@PathVariable Long id){
+    public ResponseEntity<Void> deleteDroneById(@PathVariable Long id) {
         try {
             droneService.deleteDroneById(id);
-            return ResponseEntity.noContent().build(); // Returnerer HTTP 204, hvis sletningen lykkes
-        } catch (RuntimeException  e){
-            return ResponseEntity.notFound().build(); // Returnerer HTTP 404, hvis pizzaen ikke findes
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
         }
     }
 
-    // Endpoint til at ændre status på en drone til "i drift"
+    /**
+     * Skift status på en drone til "i drift".
+     *
+     * @param id Drone ID.
+     * @return Den opdaterede drone.
+     */
     @PutMapping("/{id}/enable")
     public ResponseEntity<Drone> enableDrone(@PathVariable Long id) {
         return updateDroneStatus(id, Driftsstatus.I_DRIFT);
     }
 
-    // Endpoint til at ændre status på en drone til "ude af drift"
+    /**
+     * Skift status på en drone til "ude af drift".
+     *
+     * @param id Drone ID.
+     * @return Den opdaterede drone.
+     */
     @PutMapping("/{id}/disable")
     public ResponseEntity<Drone> disableDrone(@PathVariable Long id) {
         return updateDroneStatus(id, Driftsstatus.UDE_AF_DRIFT);
     }
 
-    // Endpoint til at ændre status på en drone til "udfaset"
+    /**
+     * Skift status på en drone til "udfaset".
+     *
+     * @param id Drone ID.
+     * @return Den opdaterede drone.
+     */
     @PutMapping("/{id}/retire")
     public ResponseEntity<Drone> retireDrone(@PathVariable Long id) {
         return updateDroneStatus(id, Driftsstatus.UDFASET);
     }
 
-    // Fælles metode til statusopdatering
+    /**
+     * Fælles metode til at opdatere dronens status.
+     *
+     * @param id     Drone ID.
+     * @param status Ny driftsstatus.
+     * @return Den opdaterede drone eller HTTP 404, hvis dronen ikke findes.
+     */
     private ResponseEntity<Drone> updateDroneStatus(Long id, Driftsstatus status) {
         try {
             Drone updatedDrone = droneService.updateDroneStatus(id, status);
@@ -91,6 +139,4 @@ public class DroneController {
             return ResponseEntity.notFound().build();
         }
     }
-
-
 }
